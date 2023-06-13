@@ -48,6 +48,8 @@ public class Args {
         PARSERS.put(boolean.class, OptionParsers.bool());
         PARSERS.put(int.class, OptionParsers.unary(Integer::parseInt, 0));
         PARSERS.put(String.class, OptionParsers.unary(String::valueOf, ""));
+        PARSERS.put(String[].class, OptionParsers.list(String[]::new, String::valueOf));
+        PARSERS.put(Integer[].class, OptionParsers.list(Integer[]::new, Integer::parseInt));
     }
 
 }

@@ -49,18 +49,19 @@ public class OptionParsers {
 
     @NotNull
     private static Optional<List<String>> values(List<String> arguments, Option option, int expectedSize) {
-        int index = arguments.indexOf("-" + option.value());
-        if (index == -1) {
-            return Optional.empty();
-        }
-        final List<String> values = getValuesFrom(arguments, index);
+        return values(arguments, option).map(it -> {
+            checkSize(option, expectedSize, it);
+            return it;
+        });
+    }
+
+    private static void checkSize(Option option, int expectedSize, List<String> values) {
         if (values.size() < expectedSize) {
             throw new InsufficientArgumentsException(option.value());
         }
         if (values.size() > expectedSize) {
             throw new TooManyArgumentsException(option.value());
         }
-        return Optional.of(values);
     }
 
     private static <T> T parseValue(Option option, String value, Function<String, T> valuePraser) {
@@ -74,7 +75,7 @@ public class OptionParsers {
     @NotNull
     private static List<String> getValuesFrom(List<String> arguments, int index) {
         final int followingFlag = IntStream.range(index + 1, arguments.size())
-                .filter(it -> arguments.get(it).startsWith("-")).findFirst().orElse(arguments.size());
+                .filter(it -> arguments.get(it).matches("^-[a-zA-Z-]+$")).findFirst().orElse(arguments.size());
         //两个flag之间的参数
         return arguments.subList(index + 1, followingFlag);
     }
