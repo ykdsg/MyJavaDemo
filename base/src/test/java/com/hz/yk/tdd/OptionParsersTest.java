@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.InOrder;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Function;
@@ -18,6 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author wuzheng.yk
@@ -71,10 +76,12 @@ public class OptionParsersTest {
             assertSame(defaultValue, result);
         }
 
+        //基于行为的测试，注意跟其他基于状态的测试的区别
         @Test
-        public void should_parse_int_option() {
-            final Integer result = OptionParsers.unary(Integer::parseInt, 0).parse(asList("-p", "8080"), option("p"));
-            assertEquals(8080, result.intValue());
+        public void should_parse_value_if_flag_present() {
+            Function parser = mock(Function.class);
+            OptionParsers.unary(parser, any()).parse(asList("-p", "8080"), option("p"));
+            verify(parser).apply("8080");
         }
 
         @Test
@@ -83,6 +90,8 @@ public class OptionParsersTest {
                     .parse(asList("-d", "/usr/logs"), option("d"));
             assertEquals("/usr/logs", result);
         }
+        
+        
     }
 
     @Nested
@@ -129,11 +138,15 @@ public class OptionParsersTest {
     class ListOptionParser {
         //    TODO: -g "this" "is" {"this", "is"}
 
+        //使用了行为验证
         @Test
-        public void should_parser_list_value() {
-            final String[] value = OptionParsers.list(String[]::new, String::valueOf)
-                    .parse(asList("-g", "this", "is"), option("g"));
-            assertArrayEquals(new String[]{ "this", "is" }, value);
+        public void should_parse_list_value() {
+            Function<String,Object> parser = mock(Function.class);
+            OptionParsers.list(Object[]::new ,parser).parse(asList("-g", "this", "is"), option("g"));
+
+            final InOrder inOrder = inOrder(parser, parser);
+            inOrder.verify(parser).apply("this");
+            inOrder.verify(parser).apply("is");
         }
         
         @Test
