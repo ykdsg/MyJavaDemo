@@ -1,13 +1,19 @@
 package com.hz.yk.tdd;
 
+import com.google.common.collect.Maps;
 import com.hz.yk.tdd.exception.IllegalOptionException;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author wuzheng.yk
@@ -58,6 +64,30 @@ public class ArgsTest {
         ListOptions options = Args.parse(ListOptions.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
         assertArrayEquals(new String[]{ "this", "is", "a", "list" }, options.group);
         assertArrayEquals(new Integer[]{ 1, 2, -3, 5 }, options.decimals);
+    }
+    
+    @Test
+    public void should_parse_options_if_option_parser_provided() {
+        OptionParser boolParser = mock(OptionParser.class);
+        OptionParser intParser = mock(OptionParser.class);
+        OptionParser stringParser = mock(OptionParser.class);
+
+        when(boolParser.parse(any(), any())).thenReturn(true);
+        when(intParser.parse(any(), any())).thenReturn(1000);
+        when(stringParser.parse(any(), any())).thenReturn("mocked");
+
+        final HashMap<Class<?>, OptionParser> parserMap = Maps.newHashMap();
+        parserMap.put(boolean.class, boolParser);
+        parserMap.put(int.class, intParser);
+        parserMap.put(String.class, stringParser);
+
+        final Args<MultiOptions> args = new Args<>(MultiOptions.class, parserMap);
+
+        final MultiOptions options = args.parse("-l", "-p", "8080", "-d", "/usr/logs");
+        assertTrue(options.isLogging());
+        assertEquals(1000, options.getPort());
+        assertEquals("mocked", options.getDirectory());
+
     }
 
     @Getter
