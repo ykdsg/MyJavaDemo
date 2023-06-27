@@ -40,6 +40,7 @@ public class Args<T> {
     }
 
     //将静态方法转为调用实例方法
+    //这种将所有直接耦合都视为坏味道的设计取向，会将功能需求的上下文打散到一组细碎的对象群落中，增加理解的难度。最终滑向过度设计（Over Design）的深渊。
     @NotNull
     public T parse(String... args) {
         try {
