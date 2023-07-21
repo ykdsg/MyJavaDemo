@@ -1,14 +1,14 @@
-package com.hz.yk.algo.camp.ch06_tree;
+package com.hz.yk.algo.camp;
 
 /**
  * @author wuzheng.yk
  * @date 2023/6/30
  */
-class TreeNode {
+public class TreeNode {
 
     int val;
-    TreeNode left;
-    TreeNode right;
+    public TreeNode left;
+    public TreeNode right;
 
     TreeNode() {}
 
