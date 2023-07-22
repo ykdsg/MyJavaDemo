@@ -6,7 +6,7 @@ package com.hz.yk.algo.camp;
  */
 public class TreeNode {
 
-    int val;
+    public int val;
     public TreeNode left;
     public TreeNode right;
 
