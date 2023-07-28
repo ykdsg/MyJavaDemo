@@ -12,7 +12,7 @@ import java.util.Set;
  * @author wuzheng.yk
  * @date 2023/7/27
  */
-public class CH127word_ladder {
+public class LC127word_ladder {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         if (beginWord.length() != endWord.length()) {
             return 0;
@@ -57,7 +57,7 @@ public class CH127word_ladder {
     }
 
     public static void main(String[] args) {
-        CH127word_ladder test = new CH127word_ladder();
+        LC127word_ladder test = new LC127word_ladder();
         String[] words = new String[]{ "hot", "dot", "dog", "lot", "log", "cog" };
         final int result = test.ladderLength("hit", "cog", Arrays.asList(words));
         System.out.println(result);

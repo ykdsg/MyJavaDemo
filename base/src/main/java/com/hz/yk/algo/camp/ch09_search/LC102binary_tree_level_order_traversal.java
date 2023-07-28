@@ -13,7 +13,7 @@ import java.util.Queue;
  * @author wuzheng.yk
  * @date 2023/7/26
  */
-public class CH102binary_tree_level_order_traversal {
+public class LC102binary_tree_level_order_traversal {
 
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
@@ -72,7 +72,7 @@ public class CH102binary_tree_level_order_traversal {
         TreeNode root = new TreeNode(3);
         root.left = new TreeNode(9);
         root.right = new TreeNode(20, 15, 7);
-        CH102binary_tree_level_order_traversal test = new CH102binary_tree_level_order_traversal();
+        LC102binary_tree_level_order_traversal test = new LC102binary_tree_level_order_traversal();
         final List<List<Integer>> result = test.levelOrder(root);
         System.out.println(result);
     }

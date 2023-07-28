@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * @author wuzheng.yk
  * @date 2023/7/26
  */
-public class CH433minimum_genetic_mutation {
+public class LC433minimum_genetic_mutation {
 
     public int minMutation(String startGene, String endGene, String[] bank) {
         Queue<Node> queue = new ArrayDeque<>();
@@ -57,7 +57,7 @@ public class CH433minimum_genetic_mutation {
     }
 
         public static void main(String[] args) {
-            CH433minimum_genetic_mutation test = new CH433minimum_genetic_mutation();
+            LC433minimum_genetic_mutation test = new LC433minimum_genetic_mutation();
             final int result = test.minMutation("AACCGGTT", "AAACGGTA",
                                                 new String[]{ "AACCGATT","AACCGATA","AAACGATA","AAACGGTA" });
             System.out.println(result);

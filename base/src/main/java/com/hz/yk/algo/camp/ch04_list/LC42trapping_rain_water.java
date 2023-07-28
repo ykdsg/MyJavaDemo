@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
+ * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+ * https://leetcode.cn/problems/trapping-rain-water/
  * @author wuzheng.yk
  * @date 2023/7/5
  */
@@ -67,7 +69,8 @@ public class LC42trapping_rain_water {
     }
 
     /**
-     * 使用栈实现，略微有点复杂，不太好理解
+     * 使用栈实现，略微有点复杂，一旦理解就比较自然
+     * 维护一个单调递减栈，如果当前值比栈顶元素大，说明遇到了右边界，那么左边界就是栈顶元素的下一个元素
      * 
      * @param height
      * @return
