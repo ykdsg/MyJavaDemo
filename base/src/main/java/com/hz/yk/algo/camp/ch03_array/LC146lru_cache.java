@@ -1,4 +1,4 @@
-package com.hz.yk.algo.camp.ch04_list;
+package com.hz.yk.algo.camp.ch03_array;
 
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;

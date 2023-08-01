@@ -1,4 +1,4 @@
-package com.hz.yk.algo.camp.ch04_list;
+package com.hz.yk.algo.camp.ch04_stack;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;

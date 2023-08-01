@@ -1,4 +1,4 @@
-package com.hz.yk.algo.camp.ch04_list.practice1;
+package com.hz.yk.algo.camp.ch04_stack.practice1;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

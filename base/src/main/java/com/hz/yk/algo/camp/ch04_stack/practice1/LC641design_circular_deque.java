@@ -1,4 +1,4 @@
-package com.hz.yk.algo.camp.ch04_list.practice1;
+package com.hz.yk.algo.camp.ch04_stack.practice1;
 
 /**
  * 设计实现循环双端队列
