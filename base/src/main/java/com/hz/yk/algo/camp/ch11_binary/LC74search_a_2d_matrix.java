@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LC74search_a_2d_matrix {
     
     //先通过一个2分查到行，再通过一个2分在行中找到值
-    public boolean searchMatrix(int[][] matrix, int target) {
+    public boolean earchMatrix(int[][] matrix, int target) {
         int rowLeft = 0, rowRight = matrix.length - 1;
         int columnSize = matrix[0].length;
         int row = -1;
