@@ -32,9 +32,12 @@ public class LC433minimum_genetic_mutation {
                 //    continue;
                 //}
                 for (char c : "ACGT".toCharArray()) {
-                    final StringBuilder sb = new StringBuilder(strartStr);
-                    sb.setCharAt(i, c);
-                    final String newStr = sb.toString();
+                    final char[] strChars = strartStr.toCharArray();
+                    if (strChars[i] == c) {
+                        continue;
+                    }
+                    strChars[i] = c;
+                    final String newStr = String.valueOf(strChars);
                     if (!Objects.equals(newStr, strartStr) && bankSet.contains(newStr)) {
                         queue.offer(new Node(newStr, node.num + 1));
                         bankSet.remove(newStr);
