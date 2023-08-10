@@ -1,5 +1,6 @@
 package com.hz.yk.algo.camp.ch08_backtracking.practice1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,8 +12,29 @@ import java.util.List;
  * @date 2023/8/9
  */
 public class LC78subsets {
-    public List<List<Integer>> subsets(int[] nums) {
 
-        return null;
+    List<List<Integer>> result = new ArrayList<>();
+    public List<List<Integer>> subsets(int[] nums) {
+        dfs(0, nums, new ArrayList<>());
+        return result;
+    }
+
+    void dfs(int layer, int[] nums, List<Integer> path) {
+        if (layer >= nums.length) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        //case1：当前字符不加入
+        dfs(layer + 1, nums, path);
+        //case2:当前字符加入
+        final ArrayList<Integer> nPath = new ArrayList<>(path);
+        nPath.add(nums[layer]);
+        dfs(layer + 1, nums, nPath);
+    }
+
+    public static void main(String[] args) {
+        LC78subsets test = new LC78subsets();
+        final List<List<Integer>> result = test.subsets(new int[]{ 1, 2, 3 });
+        System.out.println(result);
     }
 }
