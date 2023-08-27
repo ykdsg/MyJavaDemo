@@ -75,7 +75,7 @@ public class LC74search_a_2d_matrix {
         int column = matrix[0].length;
         int left = 0, right = matrix.length * column- 1;
         while (left <= right) {
-            int mid = left + (right - left) / 2;
+           int mid = left + (right - left) / 2;
             final int midValue = matrix[mid / column][mid % column];
             if (midValue == target) {
                 return true;

@@ -1,4 +1,4 @@
-package com.hz.yk.algo.camp.ch11_binary;
+package com.hz.yk.algo.camp.ch11_binary.practice1;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,30 +15,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LC33search_in_rotated_sorted_array {
 
     public int search(int[] nums, int target) {
-        if (nums.length == 0) {
-            return -1;
-        }
-        int left = 0, right = nums.length - 1;
+        int left=0,right = nums.length-1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
             if (nums[mid] == target) {
                 return mid;
             }
-            //说明左边是有序的
-            if (nums[left] <= nums[mid]) {
+            //存在的几种情况
+            //1.左边有序的情况：[1,2,3,4,5],[2,3,4,5,1],[3,4,5,1,2]
+            if (nums[left] < nums[mid]) {
+                //如果target 在有序的范围内
                 if (target >= nums[left] && target < nums[mid]) {
                     right = mid - 1;
-               } else {
+                }else {
+                    //说明不在有序的这一边，去另一边找
                     left = mid + 1;
-                }
-            } else {
-                //    说明右边是有序的
+                } 
+            }else {
+            //    说明右边是有序的：[5,1,2,3,4],[4,5,1,2,3]
                 if (target > nums[mid] && target <= nums[right]) {
                     left = mid + 1;
-                } else {
+                }else {
                     right = mid - 1;
-                }
-            }
+                } 
+            } 
         }
         return -1;
     }
