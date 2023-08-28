@@ -29,6 +29,7 @@ public class LC153find_minimum_in_rotated_sorted_array {
                 return nums[left];
             } else {
                 int half = left + (right - left) / 2;
+                //这里没必要判断，上面right-left ==1 已经涵盖这个情况
                 if (left == half) {
                     return nums[left];
                 }
