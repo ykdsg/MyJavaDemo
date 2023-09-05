@@ -14,13 +14,14 @@ public class LC152maximum_product_subarray {
         min[0] = nums[0];
         int result = nums[0];
         for (int i = 1; i < nums.length; i++) {
-            int maxPre=max[i-1], minPre=min[i-1];
             if (nums[i] < 0) {
-                maxPre = min[i - 1];
-                minPre = max[i - 1];
+                max[i] = Math.max(min[i-1] * nums[i], nums[i]);
+                min[i] = Math.min(max[i-1] * nums[i], nums[i]);
+                
+            }else{
+                max[i] = Math.max(max[i-1] * nums[i], nums[i]);
+                min[i] = Math.min(min[i-1] * nums[i], nums[i]); 
             }
-            max[i] = Math.max(maxPre * nums[i], nums[i]);
-            min[i] = Math.min(minPre * nums[i], nums[i]);
             result = Math.max(result, max[i]);
         }
         return result;
