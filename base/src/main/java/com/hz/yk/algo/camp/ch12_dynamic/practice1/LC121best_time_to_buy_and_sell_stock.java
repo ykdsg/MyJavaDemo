@@ -10,8 +10,6 @@ package com.hz.yk.algo.camp.ch12_dynamic.practice1;
  */
 public class LC121best_time_to_buy_and_sell_stock {
 
-    //递推方程：f[i]=prices[i]-min(price[0...i])
-    //相当于第i 天股票最大收益，应该是前i-1 天的最小值，跟第i天的价格增幅
     public int maxProfit(int[] prices) {
         //定义状态:dp[i][0/1] 第i天未持有、持有股票的资金情况
         //    动态方程：
