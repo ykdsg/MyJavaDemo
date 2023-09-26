@@ -22,5 +22,13 @@ public class LC1two_sum {
             } 
         }
         return new int[]{};
+
     }
+
+    public static void main(String[] args) {
+        LC1two_sum test = new LC1two_sum();
+        final int[] result = test.twoSum(new int[]{ 2, 7, 11, 15 }, 9);
+            
+    }
+    
 }

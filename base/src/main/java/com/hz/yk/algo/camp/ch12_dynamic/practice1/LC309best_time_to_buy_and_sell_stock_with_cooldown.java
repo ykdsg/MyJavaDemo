@@ -39,4 +39,5 @@ public class LC309best_time_to_buy_and_sell_stock_with_cooldown {
         final int result = test.maxProfit(prices);
         assertEquals(3, result);
     }
+
 }
