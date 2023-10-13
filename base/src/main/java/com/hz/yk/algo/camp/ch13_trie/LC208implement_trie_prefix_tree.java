@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  */
 public class LC208implement_trie_prefix_tree {
 
-    static class Trie {
+    public static class Trie {
 
         private Trie[] children;
         private boolean isEnd;
@@ -22,13 +22,13 @@ public class LC208implement_trie_prefix_tree {
 
         public void insert(String word) {
             Trie node = this;
-            for (int i = 0; i < word.length(); i++) {
-                final char ch = word.charAt(i);
+            for (char ch : word.toCharArray()) {
                 final int index = ch - 'a';
                 if (node.children[index] == null) {
                     node.children[index] = new Trie();
                 }
                 node = node.children[index];
+
             }
             node.isEnd = true;
         }
