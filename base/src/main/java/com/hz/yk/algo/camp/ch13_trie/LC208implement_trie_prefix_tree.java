@@ -3,6 +3,9 @@ package com.hz.yk.algo.camp.ch13_trie;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * @author wuzheng.yk
  * @date 2023/9/26
@@ -11,6 +14,7 @@ public class LC208implement_trie_prefix_tree {
 
     public static class Trie {
 
+        //有多种实现方式，这里是数组，也可以用hashMap
         private Trie[] children;
         private boolean isEnd;
 
@@ -40,7 +44,7 @@ public class LC208implement_trie_prefix_tree {
 
         public boolean startsWith(String prefix) {
             final Trie node = searchPrefix(prefix);
-            return node != null;
+            return node != null && node != this;
 
         }
 
@@ -66,5 +70,10 @@ public class LC208implement_trie_prefix_tree {
         final boolean result = trie.search("apple");
 
         Assertions.assertTrue(result);
+        final boolean blankResult = trie.startsWith("");
+        assertFalse(blankResult);
+
+        final boolean contaionResult = trie.startsWith("app");
+        assertTrue(contaionResult);
     }
 }
