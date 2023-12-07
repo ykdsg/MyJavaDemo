@@ -7,9 +7,10 @@
     <artifactId>MyjavaDemo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <modules>
         <module>base</module>
+        <module>ddd</module>
     </modules>
     <properties>
         <java.version>11</java.version>
@@ -18,7 +19,7 @@
         <groovy.version>3.0.7</groovy.version>
         <junit.version>5.9.2</junit.version>
     </properties>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -89,7 +90,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -163,6 +164,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8 -Xms512m -Xmx2048m</argLine>
+                    <includes>
+                        <!--只运行单元测试-->
+                        <!--<include>com/yt/llm/admin/test/unit/**</include>-->
+                    </includes>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
