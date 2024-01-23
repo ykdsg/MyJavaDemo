@@ -9,19 +9,19 @@ package com.hz.yk.base.algo.hot100.practice1;
 public class LC004median_of_two {
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int total = nums1.length + nums2.length;
-        // 奇数的情况
+        int len1 = nums1.length, len2 = nums2.length;
+        int total = len1 + len2;
         if (total % 2 == 1) {
-            int midIndex = total / 2;
-            double median = getKthElement(nums1, nums2, midIndex + 1);
+            //    奇数的情况
+            int midIndex = total / 2 + 1;
+            final double median = getKthElement(nums1, nums2, midIndex);
             return median;
         } else {
-            int midIndex1 = total / 2 - 1, midIndex2 = total / 2;
-            double median =
-                    (getKthElement(nums1, nums2, midIndex1 + 1) + getKthElement(nums1, nums2, midIndex2 + 1)) / 2.0;
+            int midIndex = total / 2;
+            final double median =
+                    (getKthElement(nums1, nums2, midIndex) + getKthElement(nums1, nums2, midIndex + 1)) / 2.0;
             return median;
         }
-
     }
 
     /**
@@ -33,14 +33,14 @@ public class LC004median_of_two {
      * @return
      */
     private int getKthElement(int[] nums1, int[] nums2, int k) {
-        int length1 = nums1.length, length2 = nums2.length;
+        final int len1 = nums1.length, len2 = nums2.length;
         int index1 = 0, index2 = 0;
         while (true) {
             //边界情况
-            if (index1 == length1) {
+            if (index1 == len1) {
                 return nums2[index2 + k - 1];
             }
-            if (index2 == length2) {
+            if (index2 == len2) {
                 return nums1[index1 + k - 1];
             }
             if (k == 1) {
@@ -49,24 +49,23 @@ public class LC004median_of_two {
 
             //    正常情况
             int half = k / 2;
-            int newIndex1 = Math.min(index1 + half, length1) - 1;
-            int newIndex2 = Math.min(index2 + half, length2) - 1;
-            // 如果对半比较发现nums1 比较小，那一半可以排除了
+            int newIndex1 = Math.min(index1 + half, len1) - 1;
+            int newIndex2 = Math.min(index2 + half, len2) - 1;
             if (nums1[newIndex1] <= nums2[newIndex2]) {
-                k -= (newIndex1 - index1 + 1);
+                k -= (newIndex1 - index1) + 1;
                 index1 = newIndex1 + 1;
             } else {
-                k -= (newIndex2 - index2 + 1);
+                k -= (newIndex2 - index2) + 1;
                 index2 = newIndex2 + 1;
             }
-
         }
+
     }
 
     public static void main(String[] args) {
         LC004median_of_two test = new LC004median_of_two();
         int[] num1 = new int[]{ 1, 3 };
-        int[] num2 = new int[]{ 2 };
+        int[] num2 = new int[]{ 2, 4 };
         final double median = test.findMedianSortedArrays(num1, num2);
         System.out.println(median);
     }
