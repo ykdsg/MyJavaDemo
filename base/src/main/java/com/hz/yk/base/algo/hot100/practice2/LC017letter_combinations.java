@@ -1,4 +1,4 @@
-package com.hz.yk.base.algo.hot100;
+package com.hz.yk.base.algo.hot100.practice2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.Objects;
  * 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
  *
  * @author wuzheng.yk
- * @date 2024/1/24
+ * @date 2024/1/25
  */
 public class LC017letter_combinations {
 
@@ -31,33 +31,28 @@ public class LC017letter_combinations {
 
     List<String> result = new ArrayList<>();
 
+    /**
+     * 使用递归进行迭代
+     *
+     * @param digits
+     * @return
+     */
     public List<String> letterCombinations(String digits) {
-
         if (digits == null || Objects.equals("", digits)) {
             return result;
         }
-        dsf(0, new StringBuilder(), digits);
+        dsf(0, "", digits);
         return result;
     }
 
-    /**
-     * 这里使用StringBuilder 会提升非常多，但是需要注意清理数据
-     *
-     * @param level
-     * @param path
-     * @param digits
-     */
-    private void dsf(int level, StringBuilder path, String digits) {
-        //递归终止条件
+    private void dsf(int level, String path, String digits) {
         if (level >= digits.length()) {
-            result.add(path.toString());
+            result.add(path);
             return;
         }
-        final String letter = cache.get(digits.charAt(level));
-        for (char c : letter.toCharArray()) {
-            dsf(level + 1, path.append(c), digits);
-            //注意这里需要清理数据，这个跟直接使用string 作为参数不同
-            path.deleteCharAt(path.length() - 1);
+        final String str = cache.get(digits.charAt(level));
+        for (int i = 0; i < str.length(); i++) {
+            dsf(level + 1, path + str.charAt(i), digits);
         }
     }
 }
