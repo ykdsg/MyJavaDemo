@@ -1,4 +1,4 @@
-package com.hz.yk.base.algo.hot100;
+package com.hz.yk.base.algo.hot100.practice3;
 
 import com.hz.yk.base.algo.camp.ch03_array.ListNode;
 
@@ -9,30 +9,26 @@ import com.hz.yk.base.algo.camp.ch03_array.ListNode;
  * 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
  *
  * @author wuzheng.yk
- * @date 2024/1/20
+ * @date 2024/1/26
  */
 public class LC002add_two_numbers {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode pre = new ListNode(0);
         ListNode cur = pre;
-        //表示进位
         int carry = 0;
         while (l1 != null || l2 != null) {
-            int left = l1 == null ? 0 : l1.val;
-            int right = l2 == null ? 0 : l2.val;
-
-            int sum = left + right + carry;
-            carry = sum / 10;
-            sum = sum % 10;
-            cur.next = new ListNode(sum);
+            int index1 = l1 == null ? 0 : l1.val;
+            int index2 = l2 == null ? 0 : l2.val;
+            int sum = index1 + index2 + carry;
+            cur.next = new ListNode(sum % 10);
             cur = cur.next;
-
+            carry = sum / 10;
             l1 = l1 == null ? null : l1.next;
             l2 = l2 == null ? null : l2.next;
         }
         if (carry == 1) {
-            cur.next = new ListNode(carry);
+            cur.next = new ListNode(1);
         }
         return pre.next;
     }
