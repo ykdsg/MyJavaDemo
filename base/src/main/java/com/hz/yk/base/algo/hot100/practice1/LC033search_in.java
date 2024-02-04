@@ -1,4 +1,4 @@
-package com.hz.yk.base.algo.hot100;
+package com.hz.yk.base.algo.hot100.practice1;
 
 /**
  * https://leetcode.cn/problems/search-in-rotated-sorted-array/description/
@@ -7,7 +7,7 @@ package com.hz.yk.base.algo.hot100;
  * 给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。
  *
  * @author wuzheng.yk
- * @date 2024/2/3
+ * @date 2024/2/4
  */
 public class LC033search_in {
 
@@ -21,20 +21,22 @@ public class LC033search_in {
             if (nums[mid] == target) {
                 return mid;
             }
-            //左边有序的情况
+            //如果左半部分有序的情况
             if (nums[left] <= nums[mid]) {
-                if (target >= nums[left] && target <= nums[mid]) {
+                if (target >= nums[left] && target < nums[mid]) {
                     right = mid - 1;
                 } else {
                     left = mid + 1;
                 }
             } else {
+                //    右半部分有序的情况
                 if (target > nums[mid] && target <= nums[right]) {
                     left = mid + 1;
                 } else {
                     right = mid - 1;
                 }
             }
+
         }
         return -1;
     }
