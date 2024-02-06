@@ -1,7 +1,6 @@
 package com.hz.yk.base.algo.camp.ch04_stack;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
@@ -77,22 +76,20 @@ public class LC42trapping_rain_water {
      */
     public int trap3(int[] height) {
         int result = 0;
-        Deque<Integer> stack = new ArrayDeque<>();
-        for (int i = 1; i < height.length; i++) {
-            //如果栈不为空，且当前指针的高度大于栈顶高度，能确定右边的墙
-            while (!stack.isEmpty() && height[stack.peek()] < height[i]) {
-                final Integer cur = stack.peek();
-                stack.pop();
-                //说明左边的墙没有，这样也接不了水
+        LinkedList<Integer> stack = new LinkedList<>();
+        for (int i = 0; i < height.length; i++) {
+            //当栈不为空，而且当前元素大于栈顶元素，说明栈顶预算遇到了右边界，一直循环直到栈为空
+            while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
+                int bottomIndex = stack.pop();
+                //如果这个时候栈为空说明没有左边界，这个时候构成不了空间
                 if (stack.isEmpty()) {
                     break;
                 }
-                final Integer left = stack.peek();
-                final int min = Math.min((height[i]), height[left]);
-                int h = min - height[cur];
-                result += h * (i - left);
+                //做边界下标
+                int left = stack.peek();
+                int h = Math.min(height[left], height[i]) - height[bottomIndex];
+                result += h * (i - left - 1);
             }
-            //如果栈中没有小于当前柱子的高度，说明需要确定新的左边的墙
             stack.push(i);
         }
         return result;
