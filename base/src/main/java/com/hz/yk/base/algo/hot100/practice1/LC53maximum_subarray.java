@@ -1,4 +1,4 @@
-package com.hz.yk.base.algo.hot100;
+package com.hz.yk.base.algo.hot100.practice1;
 
 /**
  * https://leetcode.cn/problems/maximum-subarray/description/
@@ -6,14 +6,13 @@ package com.hz.yk.base.algo.hot100;
  * 子数组 是数组中的一个连续部分。
  *
  * @author wuzheng.yk
- * @date 2024/2/17
+ * @date 2024/2/18
  */
 public class LC53maximum_subarray {
 
     /**
-     * -1,-2,3,4,-9,6
-     * 动态规划，dp[i] 表示以下标i的连续子数组最大和，dp[i] =Max(i,dp[i-1]+i)
-     * 因为只跟i-1 相关因此可以简化为单个变量
+     * dp[i] 包含下标i 的连续子数组最大和
+     * dp[i]=max(i,dp[i-1]+i)
      *
      * @param nums
      * @return
@@ -28,5 +27,4 @@ public class LC53maximum_subarray {
         }
         return max;
     }
-
 }
