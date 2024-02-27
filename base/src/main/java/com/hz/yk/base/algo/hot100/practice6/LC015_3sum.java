@@ -1,4 +1,4 @@
-package com.hz.yk.base.algo.hot100.practice5;
+package com.hz.yk.base.algo.hot100.practice6;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,55 +11,49 @@ import java.util.List;
  * 注意：答案中不可以包含重复的三元组。
  *
  * @author wuzheng.yk
- * @date 2024/2/6
+ * @date 2024/2/26
  */
 public class LC015_3sum {
 
     public List<List<Integer>> threeSum(int[] nums) {
-        final int len = nums.length;
-        List<List<Integer>> result = new ArrayList<>();
-        if (len < 3) {
-            return result;
-        }
         Arrays.sort(nums);
-        for (int i = 0; i < len - 2; i++) {
-            //需要排除重复的情况
-            if (i > 0 && nums[i] == nums[i - 1]) {
-                continue;
-            }
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < nums.length - 1; i++) {
             if (nums[i] > 0) {
                 return result;
             }
-            int left = i + 1, right = len - 1;
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int left = i + 1, right = nums.length - 1;
             while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
-                // 这样虽然不会出错，但是性能没有其他方式好
+                final int sum = nums[i] + nums[left] + nums[right];
                 if (sum == 0) {
                     result.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                }
-                if (sum < 0) {
-                    left = nextLeft(nums, left, right);
+                    left = getNextLeft(nums, left, right);
+                    right = getNextRight(nums, left, right);
+                } else if (sum < 0) {
+                    left++;
                 } else {
-                    right = nextRight(nums, left, right);
+                    right--;
                 }
             }
         }
         return result;
     }
 
-    private int nextRight(int[] nums, int left, int right) {
+    private int getNextRight(int[] nums, int left, int right) {
         while (left < right && nums[right] == nums[right - 1]) {
             right--;
         }
         return right - 1;
     }
 
-    private int nextLeft(int[] nums, int left, int right) {
+    private int getNextLeft(int[] nums, int left, int right) {
         while (left < right && nums[left] == nums[left + 1]) {
             left++;
         }
 
         return left + 1;
     }
-
 }
