@@ -10,16 +10,16 @@ package com.hz.yk.base.algo.hot100.practice1;
  */
 public class LC79word_search {
 
-    int[][] steps = { { 0, -1 }, { -1, 0 }, { 0, 1 }, { 1, 0 } };
+    int row;
+    int col;
 
     public boolean exist(char[][] board, String word) {
-        final int row = board.length;
-        final int col = board[0].length;
+        row = board.length;
+        col = board[0].length;
 
-        boolean[][] readed = new boolean[row][col];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                if (dfs(board, word, i, j, readed, 0)) {
+                if (dfs(board, word, i, j, 0)) {
                     return true;
                 }
             }
@@ -27,23 +27,22 @@ public class LC79word_search {
         return false;
     }
 
-    private boolean dfs(char[][] board, String word, int i, int j, boolean[][] readed, int start) {
-        if (start == word.length()) {
+    private boolean dfs(char[][] board, String word, int i, int j, int start) {
+        if (i < 0 || i >= row || j < 0 || j >= col || board[i][j] != word.charAt(start)) {
+            return false;
+        } else if (start == word.length() - 1) {
             return true;
         }
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || readed[i][j]) {
-            return false;
+
+        board[i][j] = '#';
+        //这里比使用for 循环性能要好
+        if (dfs(board, word, i - 1, j, start + 1) || dfs(board, word, i, j - 1, start + 1) || dfs(board, word, i + 1, j,
+                                                                                                  start + 1) || dfs(
+                board, word, i, j + 1, start + 1)) {
+            return true;
         }
-        if (board[i][j] != word.charAt(start)) {
-            return false;
-        }
-        readed[i][j] = true;
-        for (int[] step : steps) {
-            if (dfs(board, word, i + step[0], j + step[1], readed, start + 1)) {
-                return true;
-            }
-        }
-        readed[i][j] = false;
+        board[i][j] = word.charAt(start);
         return false;
     }
+
 }
