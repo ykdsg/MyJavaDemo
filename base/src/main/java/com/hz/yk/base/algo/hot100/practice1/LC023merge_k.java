@@ -12,6 +12,12 @@ import com.hz.yk.base.algo.camp.ch03_array.ListNode;
  */
 public class LC023merge_k {
 
+    /**
+     * 针对这类问题，基本都是一步步拆解到最细粒度，然后再收敛上来，非常适合递归的思路
+     *
+     * @param lists
+     * @return
+     */
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists.length == 0) {
             return null;
