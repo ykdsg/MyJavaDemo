@@ -14,9 +14,9 @@ public class LC019remove_nth {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode pre = new ListNode();
         pre.next = head;
-        ListNode right = head, left = pre;
-        //右边界先跑出去n-1远的距离
-        for (int i = 0; i < n - 1; i++) {
+        ListNode right = pre, left = pre;
+        //右边界先跑出去n远的距离
+        for (int i = 0; i < n; i++) {
             right = right.next;
         }
         while (right != null && right.next != null) {

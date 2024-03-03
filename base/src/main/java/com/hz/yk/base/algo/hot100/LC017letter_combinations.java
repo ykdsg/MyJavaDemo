@@ -32,7 +32,6 @@ public class LC017letter_combinations {
     List<String> result = new ArrayList<>();
 
     public List<String> letterCombinations(String digits) {
-
         if (digits == null || Objects.equals("", digits)) {
             return result;
         }

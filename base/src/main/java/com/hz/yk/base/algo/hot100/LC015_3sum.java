@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * https://leetcode.cn/problems/3sum/description/
  * 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请
  * 你返回所有和为 0 且不重复的三元组。
  * 注意：答案中不可以包含重复的三元组。
@@ -31,7 +32,7 @@ public class LC015_3sum {
                 return result;
             }
 
-            //如果跟前一位相同说明已经遍历过同样的case，可以直接跳过
+            //如果跟前一位相同说明已经遍历过同样的数值，可以直接跳过
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }

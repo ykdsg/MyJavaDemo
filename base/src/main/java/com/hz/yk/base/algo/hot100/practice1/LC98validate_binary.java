@@ -1,4 +1,4 @@
-package com.hz.yk.base.algo.hot100;
+package com.hz.yk.base.algo.hot100.practice1;
 
 import com.hz.yk.base.algo.camp.TreeNode;
 
@@ -11,11 +11,11 @@ import com.hz.yk.base.algo.camp.TreeNode;
  * 所有左子树和右子树自身必须也是二叉搜索树。
  *
  * @author wuzheng.yk
- * @date 2024/3/2
+ * @date 2024/3/3
  */
 public class LC98validate_binary {
 
-    Integer preVal;
+    Integer pre;
 
     public boolean isValidBST(TreeNode root) {
         if (root == null) {
@@ -24,19 +24,11 @@ public class LC98validate_binary {
         if (!isValidBST(root.left)) {
             return false;
         }
-        if (preVal != null && root.val <= preVal) {
+        if (pre != null && root.val <= pre) {
             return false;
         }
-        preVal = root.val;
+        pre = root.val;
         return isValidBST(root.right);
     }
 
-    public static void main(String[] args) {
-        LC98validate_binary test = new LC98validate_binary();
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(1);
-        final boolean result = test.isValidBST(root);
-        System.out.println(result);
-
-    }
 }
