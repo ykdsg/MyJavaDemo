@@ -10,7 +10,9 @@ package com.hz.yk.base.algo.hot100;
 public class LC004median_of_two {
 
     /**
-     * 根据中位数的定义，当 m+nm+nm+n 是奇数时，中位数是两个有序数组中的第 (m+n)/2(m+n)/2(m+n)/2 个元素，当 m+nm+nm+n 是偶数时，中位数是两个有序数组中的第 (m+n)/2(m+n)/2(m+n)/2 个元素和第 (m+n)/2+1(m+n)/2+1(m+n)/2+1 个元素的平均值。因此，这道题可以转化成寻找两个有序数组中的第 kkk 小的数，其中 kkk 为 (m+n)/2(m+n)/2(m+n)/2 或 (m+n)/2+1(m+n)/2+1(m+n)/2+1。
+     * 根据中位数的定义，当 m+n是奇数时，中位数是两个有序数组中的第 (m+n)/2 个元素，当 m+n 是偶数时，
+     * 中位数是两个有序数组中的第 (m+n)/2 个元素和第 (m+n)/2+1 个元素的平均值。因此，这道题可以转化成寻找两个有序数组中的第 k 小的数，
+     * 其中 k 为 (m+n)/2 或 (m+n)/2+1。
      * 整体思路略微有点复杂，可以直接参考官方题解：https://leetcode.cn/problems/median-of-two-sorted-arrays/solutions/258842/xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-s-114/
      *
      * @param nums1
@@ -36,6 +38,7 @@ public class LC004median_of_two {
 
     /**
      * 注意这里的k是第k位，并不是下标k
+     * 可以用递归改造下，能精简不少
      *
      * @param nums1
      * @param nums2

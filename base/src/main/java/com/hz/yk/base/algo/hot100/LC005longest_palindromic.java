@@ -17,6 +17,7 @@ public class LC005longest_palindromic {
         }
         int begin = 0, max = 1;
 
+        //dp[i][j] 表示s[i][j]是否为回文
         boolean[][] dp = new boolean[len][len];
         final char[] charArray = s.toCharArray();
         for (int j = 0; j < len; j++) {
@@ -30,6 +31,7 @@ public class LC005longest_palindromic {
                         dp[i][j] = dp[i + 1][j - 1];
                     }
                 }
+                //如果是回文就看下是否当前最大
                 if (dp[i][j] && j - i + 1 > max) {
                     begin = i;
                     max = j - i + 1;
