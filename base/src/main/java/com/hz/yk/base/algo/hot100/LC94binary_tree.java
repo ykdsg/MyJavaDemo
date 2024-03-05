@@ -34,7 +34,38 @@ public class LC94binary_tree {
         return result;
     }
 
+    /**
+     * 纯用栈处理
+     *
+     * @param root
+     * @return
+     */
     public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            if (cur != null) {
+                //不断往左子树迭代，并将当前节点保存到栈中
+                stack.push(cur);
+                cur = cur.left;
+            } else { //左子树走到底，进行出栈并记录
+                final TreeNode node = stack.pop();
+                result.add(node.val);
+                // 如果有右节点继续上面的过程
+                cur = node.right;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 颜色标记法
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversalColor(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if (root == null) {
             return result;
