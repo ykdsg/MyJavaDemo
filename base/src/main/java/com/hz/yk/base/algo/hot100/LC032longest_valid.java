@@ -10,27 +10,25 @@ package com.hz.yk.base.algo.hot100;
 public class LC032longest_valid {
 
     public int longestValidParentheses(String s) {
-        int max = 0;
-        //dp[i] 表示以下标 i 字符结尾的最长有效括号的长度
-        int[] dp = new int[s.length()];
         final char[] chars = s.toCharArray();
+        int[] dp = new int[chars.length];
+        int max = 0;
         for (int i = 1; i < chars.length; i++) {
-            //最后结尾是右括号才有可能是有效的
+            //只有封闭的右括号才有可能配对
             if (chars[i] == ')') {
-                //如果前一位刚好是左括号刚好凑成一对，那就看dp[i-2] 的数量
+                //跟前一位刚好匹配
                 if (chars[i - 1] == '(') {
+                    // 数量就是前前位+2，这里>= 还是> 实际是一样的，因为dp[0]=0
                     dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
-                } else {
-                    //前一个匹配不上的位置
-                    final int preIndex = i - dp[i - 1];
-                    //看下前面是否刚好有一个左括号来配对
-                    if (preIndex > 0 && chars[preIndex - 1] == '(') {
-                        //因为dp[preIndex-1] 刚好连接上了，所以要接上 dp[preIndex - 2]
-                        dp[i] = dp[i - 1] + (preIndex >= 2 ? dp[preIndex - 2] : 0) + 2;
+                } else { // i-1 也是右括号
+                    final int pre = i - 1 - dp[i - 1];
+                    if (pre >= 0 && chars[pre] == '(') {
+                        dp[i] = (pre > 0 ? dp[pre - 1] : 0) + dp[i - 1] + 2;
                     }
                 }
                 max = Math.max(max, dp[i]);
             }
+
         }
         return max;
     }

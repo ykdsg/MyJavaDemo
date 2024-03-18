@@ -19,40 +19,40 @@ public class LC34find_first {
      * @return
      */
     public int[] searchRange(int[] nums, int target) {
-        if (nums.length == 0) {
+        final int len = nums.length;
+        if (len == 0) {
             return new int[]{ -1, -1 };
         }
+        int left = 0, right = len - 1;
         int begin = -1, end = -1;
-        int left = 0, right = nums.length - 1;
-        // 找第一个等于target的位置
+        //先找左边起始点
         while (left <= right) {
             int mid = left + (right - left) / 2;
+            //要找左边界，需要往尽可能小的方向寻找
             if (nums[mid] == target) {
                 begin = mid;
                 right = mid - 1;
-            } else if (nums[mid] > target) {
-                right = mid - 1;
-            } else {
+            } else if (target > nums[mid]) {
                 left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
-        //找最后一个等于target 的位置
         left = 0;
-        right = nums.length - 1;
+        right = len - 1;
         while (left <= right) {
-            // 因为这里left 会设置为mid，所以这里需要进行+1 操作，不然会死循环
-            int mid = left + (right - left + 1) / 2;
+            int mid = left + (right - left) / 2;
+            //要找右边界，需要往尽可能大的方向寻找
             if (nums[mid] == target) {
                 end = mid;
                 left = mid + 1;
-            } else if (nums[mid] > target) {
-                right = mid - 1;
-            } else {
+            } else if (target > nums[mid]) {
                 left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
         return new int[]{ begin, end };
-
     }
 
 }

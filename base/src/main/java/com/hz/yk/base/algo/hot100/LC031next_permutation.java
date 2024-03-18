@@ -13,33 +13,35 @@ import java.util.Arrays;
  */
 public class LC031next_permutation {
 
+    /**
+     * 123456
+     * 123465
+     * 123546
+     *
+     * @param nums
+     */
     public void nextPermutation(int[] nums) {
         final int len = nums.length;
-        if (len <= 1) {
+        if (len < 2) {
             return;
         }
-        //从右边开始
-        int i = len - 2, j = len - 1, k = len - 1;
-        //find: nums[i] < nums[j]
-        // 找到前面的「小数」
-        while (i >= 0 && nums[i] >= nums[j]) {
+        int i = len - 2, k = len - 1;
+        //找到最右边的“小数”
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
-            j--;
         }
-        // 不是最后一个排列
+        //如果不是最后一种情况，注意这里包含=0 的情况
         if (i >= 0) {
-            // find: nums[i]<nums[k]
             //从后往前，找到尽可能“小”的大数
             while (nums[i] >= nums[k]) {
                 k--;
             }
-            // swap A[i], A[k]
-            final int tmpi = nums[i];
+            int tmp = nums[i];
             nums[i] = nums[k];
-            nums[k] = tmpi;
+            nums[k] = tmp;
         }
-        // order asc nums[j:end]
+        //需要将i+1 之后的数字排序
         //将「大数」换到前面后，需要将「大数」后面的所有数 重置为升序，升序排列就是最小的排列。
-        Arrays.sort(nums, j, len);
+        Arrays.sort(nums, i + 1, len);
     }
 }
