@@ -1,4 +1,4 @@
-package com.hz.yk.base.algo.hot100;
+package com.hz.yk.base.algo.hot100.practice1;
 
 import com.hz.yk.base.algo.camp.TreeNode;
 
@@ -8,7 +8,7 @@ import com.hz.yk.base.algo.camp.TreeNode;
  * 该路径 至少包含一个 节点，且不一定经过根节点。路径和 是路径中各节点值的总和。
  *
  * @author wuzheng.yk
- * @date 2024/3/21
+ * @date 2024/3/23
  */
 public class LC124binary_tree {
 
@@ -34,4 +34,5 @@ public class LC124binary_tree {
         final int outerVal = root.val + Math.max(left, right);
         return Math.max(outerVal, 0);
     }
+
 }

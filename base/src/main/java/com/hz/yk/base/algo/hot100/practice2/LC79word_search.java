@@ -1,4 +1,4 @@
-package com.hz.yk.base.algo.hot100;
+package com.hz.yk.base.algo.hot100.practice2;
 
 /**
  * https://leetcode.cn/problems/word-search/description/
@@ -6,7 +6,7 @@ package com.hz.yk.base.algo.hot100;
  * 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
  *
  * @author wuzheng.yk
- * @date 2024/2/26
+ * @date 2024/3/23
  */
 public class LC79word_search {
 
@@ -36,4 +36,5 @@ public class LC79word_search {
         board[i][j] = word.charAt(index);
         return result;
     }
+
 }
