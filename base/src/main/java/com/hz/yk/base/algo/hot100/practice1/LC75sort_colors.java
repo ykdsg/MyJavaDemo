@@ -21,6 +21,10 @@ public class LC75sort_colors {
         if (nums.length == 0) {
             return;
         }
+        //定义几个下标，需要实现
+        // all in [0, zero] = 0
+        // all in (zero, i) = 1
+        // all in (two, len - 1] = 2
         int zero = 0, cur = 0, two = nums.length - 1;
         while (cur <= two) {
             if (nums[cur] == 0) {
