@@ -10,6 +10,7 @@ package com.hz.yk.base.algo.hot100.practice1;
 public class LC76minimum_window {
 
     public String minWindow(String s, String t) {
+        // 这里根据题目给出的限定条件，只有英文字母，所以可以使用128位asc 来表示
         int[] cache = new int[128];
         int cnt = t.length();
         for (int i = 0; i < t.length(); i++) {
