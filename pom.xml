@@ -11,6 +11,7 @@
     <modules>
         <module>base</module>
         <module>ddd</module>
+        <module>reactor-lab</module>
     </modules>
     <properties>
         <java.version>11</java.version>
