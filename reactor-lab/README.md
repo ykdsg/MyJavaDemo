@@ -3,6 +3,23 @@
 这是独立 Maven 练习目录，不继承仓库父 POM，不修改 base 或 ddd 模块。
 需要 JDK 11+ 和 Maven；首次运行需要下载依赖，测试本身不启动服务、不访问网络。
 
+## 当前学习入口：先模型，后工程用法
+
+跨对话继续学习：先读 `STUDY-STATE.md`，再读 `LEARNING-PATH.md`。
+前者记录学习进度、易错点、下一案例与可复制的新对话提示，后者保存课程路线和参考工程映射。
+用例已实现、测试通过不等于已经学完，后续会按实际理解更新学习状态。
+
+如果已完成前面的入门练习，接下来从 `LEARNING-PATH.md` 开始，不必重复旧题。
+参考 llm-agent 的业务场景，但在本目录独立运行：先读 ReactorModelTest 的六个模型案例，
+再看 CompletionFlowTest 的六个任务编排案例。示范已经实现，不要求你补测试。
+资源生命周期、事件总线和流式重试按学习进度继续新增，路线图中的后续阶段尚未实现。
+
+```bash
+mvn -B -f reactor-lab/pom.xml "-Dtest=ReactorModelTest,CompletionFlowTest" test
+```
+
+从仓库根目录执行；两个测试类均不连接参考工程，不增加业务依赖。
+
 ## 第一课：信号与订阅（约 15 分钟）
 
 目标：能解释返回什么、何时执行、如何验证。暂时不讨论线程切换。
@@ -88,3 +105,37 @@ fromCallable 将调用保存为任务；在本课默认请求下，每次订阅�
 5. 商品详情聚合：正常、空结果、降级与超时验收。
 
 先完成第一课和 A1，不需要现在学习所有操作符。
+
+## 综合题：商品详情聚合
+
+本节约 15–20 分钟，不连接真实接口。先阅读
+`src/main/java/com/hz/yk/reactor/product/ProductDetailService.java`，再运行
+`src/test/java/com/hz/yk/reactor/product/ProductDetailServiceTest.java`。
+
+```bash
+mvn -B -f reactor-lab/pom.xml -Dtest=ProductDetailServiceTest test
+```
+
+命令从仓库根目录执行；若已进入 reactor-lab，省略 `-f reactor-lab/pom.xml`。
+
+业务契约：
+
+| 分支 | 正常结果 | 空结果 | 错误 |
+| --- | --- | --- | --- |
+| 商品 | 商品名称 | 商品不存在异常 | 原样传播 |
+| 价格 | 实时价格 | 价格不可用异常，不访问缓存 | 查询缓存；缓存为空也报价格不可用，缓存失败继续报错 |
+| 库存 | IN_STOCK / OUT_OF_STOCK | UNKNOWN | 超过 200ms 未返回降级 UNKNOWN，其他非超时错误传播 |
+
+阅读顺序：
+
+1. `testSuccessDoesNotSubscribeToCache`：三个分支如何组合成一个详情，缓存为何没被订阅。
+2. `testMissingProductFailsInsteadOfCompletingEmpty`：先规范化空分支，避免 zip 静默完成。
+3. `testPriceFailureUsesCachedPrice` 与 `testCacheFailureIsNotSwallowed`：局部恢复错误，不兜底整条链。
+4. `testStockTimeoutUsesUnknownAndCancelsSource`：199ms 无结果，200ms 降级，并取消库存源。
+5. `testAsyncSourcesAggregateAfterSlowestSource`：50/80/100ms 三个异步源在 100ms 聚合，而非 230ms。
+
+注意：zip 本身不创建线程，也不把阻塞调用自动并行化。时间案例在 withVirtualTime 的 Supplier
+内创建整条链，没有真实 sleep。业务代码不调用 subscribe 或 block；订阅由测试或调用方负责。
+
+自测问题：如果直接将原始的空商品 Mono 交给 zip，会得到业务错误还是空完成？
+如果把价格分支的 onErrorResume 移到 zip 后面，会影响哪些错误？
